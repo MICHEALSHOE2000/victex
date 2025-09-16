@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Victex Optical Service</title>
+
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+  /* ===========================
+     MOBILE-FIRST BASE STYLES
+     =========================== */
+  :root{
+    --accent-gold: #d4af37;
+    --accent-teal: #2BC4AD;
+    --dark: #111317;
+    --muted: #6b7280;
+    --bg: #ffffff;
+    --surface: #fafafa;
+    --radius: 12px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: 'Poppins', sans-serif;
+    background:var(--bg);
+    color:var(--dark);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.5;
+    scroll-behavior:smooth;
+  }
+
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+
+  /* Utility */
+  .container{width:100%;padding:0 1rem;margin:0 auto;max-width:1100px}
+  .section{padding:2rem 0}
+  .center{text-align:center}
+  .muted{color:var(--muted)}
+  .btn{
+    display:inline-block;padding:0.7rem 1.25rem;border-radius:999px;border:2px solid var(--dark);
+    background:transparent;color:var(--dark);font-weight:600;font-size:0.95rem;
+  }
+  .btn-primary{
+    background:var(--accent-gold);border-color:var(--accent-gold);color:#111;font-weight:700;
+  }
+  .kicker{font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted);}
+
+  /* ===========================
+     HEADER / NAV - mobile first
+     =========================== */
+  header.site-header{
+    background:var(--bg);
+    position:sticky;top:0;z-index:1200;border-bottom:1px solid #eee;
+  }
+  .nav-row{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem}
+  .brand{display:flex;align-items:center;gap:0.75rem}
+  .brand .logo{
+    font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;color:var(--dark)
+  }
+  .brand .sub{font-size:0.8rem;color:var(--muted)}
+  .menu-toggle{
+    background:transparent;border:none;font-size:1.3rem;padding:0.3rem;border-radius:8px;
+  }
+  nav.primary-nav{
+    display:none;
+  }
+
+  /* hero (short + light bg) */
+  #hero{
+    background: url('image/bg.webp') center/cover no-repeat;
+    min-height:48vh; display:flex; align-items:center; justify-content:center;
+    position:relative; padding:2rem 0;
+  }
+  /* fallback remote image if local missing */
+  #hero{background-color: #f7f7f7}
+  #hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.35));pointer-events:none}
+  .hero-inner{position:relative;z-index:2;max-width:900px;padding:1rem;background:rgba(255,255,255,0.6);border-radius:14px}
+  .hero-title{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:0.25rem}
+  .hero-sub{color:var(--muted);margin-bottom:1rem}
+
+  /* ===========================
+     LOOKBOOK SLIDER (mobile-first)
+     =========================== */
+  #slider-section{padding-top:1.25rem;padding-bottom:1rem}
+  .slider-wrapper{position:relative;overflow:hidden;border-radius:var(--radius)}
+  .slider{
+    display:flex;gap:0.9rem;transition:transform .55s cubic-bezier(.22,.9,.36,1);
+    will-change:transform;
+  }
+  .slide{flex:0 0 92%;border-radius:12px;overflow:hidden}
+  .slide img{width:100%;height:320px;object-fit:cover;display:block}
+  .slider-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);
+    background:rgba(255,255,255,0.88);border:none;padding:0.35rem 0.6rem;border-radius:999px;font-size:1.4rem;z-index:8;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08)
+  }
+  .slider-arrow.left{left:10px}
+  .slider-arrow.right{right:10px}
+  .slider-dots{display:flex;gap:6px;justify-content:center;padding:0.9rem 0}
+  .dot{width:10px;height:10px;border-radius:999px;background:#ddd;display:inline-block}
+  .dot.active{background:var(--accent-gold)}
+
+  /* Shop Now CTA under collection */
+  .shop-now{display:flex;gap:0.75rem;justify-content:center;margin-top:0.85rem}
+
+  /* ===========================
+     SERVICES GRID (clickable items)
+     =========================== */
+  #services .service-grid{display:grid;grid-template-columns:1fr;gap:0.9rem}
+  .service-card{
+    position:relative;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 6px 24px rgba(16,24,40,0.06);
+  }
+  .service-card img{width:100%;height:200px;object-fit:cover;display:block;transition:transform .45s}
+  .service-card .svc-info{padding:0.85rem}
+  .service-card h3{font-size:1.05rem;margin-bottom:0.35rem}
+  .service-card p{font-size:0.9rem;color:var(--muted)}
+  .service-card:active img,.service-card:hover img{transform:scale(1.03)}
+
+  /* clickable overlay for accessibility */
+  .svc-link{position:absolute;inset:0;display:block;border:0;background:transparent}
+
+  /* ===========================
+     BADGES / CERTIFICATIONS
+ /* ===========================
+   CERTIFICATIONS / BADGES (NEW)
+   =========================== */
+.badges-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+.badge-item {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.badge-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+}
+.badge-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 0.4rem;
+}
+.badge-item p {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+@media(min-width:768px) {
+  .badges-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+  /* ===========================
+     OPTICIAN section
+     =========================== */
+  #optician .optician-row{display:flex;flex-direction:column;gap:1rem;align-items:center}
+  #optician img{width:180px;height:180px;object-fit:cover;border-radius:12px}
+
+  /* ===========================
+     TESTIMONIALS
+     =========================== */
+  #testimonials .testimonial{background:#fff;padding:1rem;border-radius:12px;box-shadow:0 8px 24px rgba(2,6,23,0.06);max-width:720px;margin:0.6rem auto}
+  .stars{color:#fbbf24;margin-bottom:0.5rem}
+
+  /* ===========================
+     FAQ
+     =========================== */
+  .faq{max-width:900px;margin:0.5rem auto}
+  .faq-item{border-radius:10px;padding:0.75rem;background:#fff;margin-bottom:0.6rem;box-shadow:0 6px 18px rgba(2,6,23,0.04)}
+  .faq-q{font-weight:600}
+  .faq-a{margin-top:0.4rem;color:var(--muted)}
+/* ===========================
+   ABOUT US
+   =========================== */
+   #about {
+  padding: 4rem 1.5rem;
+  background: #fafafa;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.about-text h3 {
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  color: var(--accent-gold);
+}
+
+.about-text p {
+  margin-bottom: 1rem;
+  color: var(--gray);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+@media(min-width:768px){
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+  /* ===========================
+     CONTACT & FOOTER
+     =========================== */
+     /* ===========================
+   CONTACT FORM (New Styling)
+   =========================== */
+.form-wrapper {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  max-width: 600px;
+  margin: 1.5rem auto 0;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 0.95rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1rem;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-teal));
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+  #contact-form{display:flex;flex-direction:column;gap:0.6rem}
+  input,select,textarea{padding:0.8rem;border-radius:8px;border:1px solid #e6e6e6;font-size:0.95rem}
+  textarea{min-height:100px}
+  footer{padding:1.25rem 1rem;background:var(--dark);color:#fff;text-align:center;font-size:0.95rem;margin-top:1rem}
+
+  /* ===========================
+     DESKTOP / LARGER (media queries)
+     =========================== */
+  @media(min-width:720px){
+    .slide{flex:0 0 48%}
+    .slider{padding:0 8px}
+    #hero{min-height:46vh}
+    .hero-title{font-size:2.2rem}
+  }
+  @media(min-width:980px){
+    .container{max-width:1100px}
+    nav.primary-nav{display:block}
+    nav.primary-nav ul{display:flex;gap:1rem;list-style:none;align-items:center}
+    .menu-toggle{display:none}
+    .nav-row{padding:1rem 2rem}
+    #hero{min-height:44vh}
+    .slide{flex:0 0 32%}
+    #services .service-grid{grid-template-columns:repeat(3,1fr)}
+    .hero-inner{padding:2rem}
+  }
+
+  /* small polish */
+  .section-title{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:0.65rem}
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="nav-row container">
+      <div class="brand" aria-label="Victex Optical Service">
+        <div class="logo">Victex Optical</div>
+        <div class="sub muted">EyeCare and lab Service</div>
+      </div>
+
+      <!-- desktop nav (hidden on small screens) -->
+      <nav class="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#slider-section">Collection</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#optician">Optician</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- mobile menu toggle -->
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" id="menuToggle" aria-label="Open menu">☰</button>
+    </div>
+
+    <!-- mobile menu -->
+    <nav id="mobile-menu" style="display:none;padding:0.5rem 1rem;background:var(--bg);border-top:1px solid #eee">
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.4rem">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#slider-section">Collection</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#optician">Optician</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="fade-in">
+    <div class="container hero-inner center" role="banner" aria-label="Site hero">
+      <div class="kicker">Victex Optical Service</div>
+      <h1 class="hero-title">Stylish Eyewear with a Touch of Care</h1>
+      <p class="hero-sub muted">Frames, sunglasses, lenses & professional repairs — located at 47 Obafemi Awolowo Way, Allen, Ikeja</p>
+      <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;margin-top:0.5rem">
+        <button class="btn btn-primary btn-whatsapp" aria-label="Chat on Whatsapp">Chat on WhatsApp</button>
+        <a href="#contact" class="btn" aria-label="Contact us">Book appointment</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLECTION / LOOKBOOK -->
+  <section id="slider-section" class="section">
+    <div class="container">
+      <div class="section-title center">Our Collection</div>
+      <p class="center muted" style="margin-bottom:0.9rem">Swipe to browse — tap an image to enquire</p>
+
+      <div class="slider-wrapper" aria-roledescription="carousel" aria-label="Collection slider">
+        <button class="slider-arrow left" aria-label="Previous slide">&lsaquo;</button>
+        <div class="slider" id="slider">
+          <!-- slides: use your image/one.jpg etc. -->
+          <div class="slide"><img src="image/one.jpg" alt="Collection image 1" onerror="this.src='https://via.placeholder.com/900x600?text=Image+1'"></div>
+          <div class="slide"><img src="image/two.jpg" alt="Collection image 2" onerror="this.src='https://via.placeholder.com/900x600?text=Image+2'"></div>
+          <div class="slide"><img src="image/three.jpg" alt="Collection image 3" onerror="this.src='https://via.placeholder.com/900x600?text=Image+3'"></div>
+          <div class="slide"><img src="image/five.jpg" alt="Collection image 4" onerror="this.src='https://via.placeholder.com/900x600?text=Image+4'"></div>
+          <div class="slide"><img src="image/six.jpg" alt="Collection image 5" onerror="this.src='https://via.placeholder.com/900x600?text=Image+5'"></div>
+          <div class="slide"><img src="image/seven.jpg" alt="Collection image 6" onerror="this.src='https://via.placeholder.com/900x600?text=Image+6'"></div>
+          <div class="slide"><img src="image/eight.jpg" alt="Collection image 7" onerror="this.src='https://via.placeholder.com/900x600?text=Image+7'"></div>
+          <div class="slide"><img src="image/nine.jpg" alt="Collection image 8" onerror="this.src='https://via.placeholder.com/900x600?text=Image+8'"></div>
+          <div class="slide"><img src="image/ten.jpg" alt="Collection image 9" onerror="this.src='https://via.placeholder.com/900x600?text=Image+9'"></div>
+          <div class="slide"><img src="image/eleven.jpg" alt="Collection image 10" onerror="this.src='https://via.placeholder.com/900x600?text=Image+10'"></div>
+          <div class="slide"><img src="image/twelve.jpg" alt="Collection image 11" onerror="this.src='https://via.placeholder.com/900x600?text=Image+11'"></div>
+          <div class="slide"><img src="image/thirteen.jpg" alt="Collection image 12" onerror="this.src='https://via.placeholder.com/900x600?text=Image+12'"></div>
+          <div class="slide"><img src="image/fourteen.jpg" alt="Collection image 13" onerror="this.src='https://via.placeholder.com/900x600?text=Image+13'"></div>
+          <div class="slide"><img src="image/fifteen.jpg" alt="Collection image 14" onerror="this.src='https://via.placeholder.com/900x600?text=Image+14'"></div>
+          
+        </div>
+
+
+        <button class="slider-arrow right" aria-label="Next slide">&rsaquo;</button>
+      </div>
+
+      <div class="slider-dots" id="slider-dots" role="tablist" aria-label="Slider navigation"></div>
+
+      <!-- Shop Now CTA -->
+      <div class="shop-now">
+        <a href="#contact" class="btn btn-primary" id="shopNow">Shop Now</a>
+        <a href="#services" class="btn">View Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES (clickable images) -->
+  <section id="services" class="section" aria-labelledby="servicesTitle">
+    <div class="container">
+      <div id="servicesTitle" class="section-title center">Services</div>
+      <p class="center muted" style="margin-bottom:0.9rem">Tap any tile to enquire — we'll guide you.</p>
+
+      <div class="service-grid">
+        <article class="service-card" data-service="Optical Frames" tabindex="0" role="button" aria-pressed="false">
+          <img src="image/opf.jpg" alt="Optical Frames" onerror="this.src='https://via.placeholder.com/800x500?text=Frames'">
+          <div class="svc-info">
+            <h3>Optical Frames</h3>
+            <p>Stylish frames for every face shape — classic to contemporary.</p>
+          </div>
+          <a class="svc-link" href="#" data-service="Optical Frames" aria-label="Enquire about Optical Frames"></a>
+        </article>
+
+        <article class="service-card" data-service="Sunglasses" tabindex="0" role="button" aria-pressed="false">
+          <img src="image/sg.avif" alt="Sunglasses" onerror="this.src='https://via.placeholder.com/800x500?text=Sunglasses'">
+          <div class="svc-info">
+            <h3>Sunglasses</h3>
+            <p>UV protection & designer styles to elevate your look.</p>
+          </div>
+          <a class="svc-link" href="#" data-service="Sunglasses" aria-label="Enquire about Sunglasses"></a>
+        </article>
+
+        <article class="service-card" data-service="Contact Lenses" tabindex="0" role="button" aria-pressed="false">
+          <img src="image/cont.webp" alt="Contact Lenses" onerror="this.src='https://via.placeholder.com/800x500?text=Contact+Lenses'">
+          <div class="svc-info">
+            <h3>Contact Lenses</h3>
+            <p>Daily, monthly, coloured and medical contact lens options.</p>
+          </div>
+          <a class="svc-link" href="#" data-service="Contact Lenses" aria-label="Enquire about Contact Lenses"></a>
+        </article>
+
+        <article class="service-card" data-service="Blue Ray Lenses" tabindex="0" role="button" aria-pressed="false">
+          <img src="image/brl.jpeg" alt="Blue Ray Lenses" onerror="this.src='https://via.placeholder.com/800x500?text=Blue+Ray'">
+          <div class="svc-info">
+            <h3>Blue Ray Lenses</h3>
+            <p>Reduce eye strain from screens with our blue light lenses.</p>
+          </div>
+          <a class="svc-link" href="#" data-service="Blue Ray Lenses" aria-label="Enquire about Blue Ray Lenses"></a>
+        </article>
+
+        <article class="service-card" data-service="Photochromic Lenses" tabindex="0" role="button" aria-pressed="false">
+          <img src="image/pcl.avif" alt="Photochromic Lenses" onerror="this.src='https://via.placeholder.com/800x500?text=Photochromic'">
+          <div class="svc-info">
+            <h3>Photochromic Lenses</h3>
+            <p>Adapt to changing light—indoors clear, outdoor tint.</p>
+          </div>
+          <a class="svc-link" href="#" data-service="Photochromic Lenses" aria-label="Enquire about Photochromic Lenses"></a>
+        </article>
+
+        <article class="service-card" data-service="Repairs & Fixing" tabindex="0" role="button" aria-pressed="false">
+          <img src="image/repair.jpeg" alt="Repairs & Fixing" onerror="this.src='https://via.placeholder.com/800x500?text=Repair'">
+          <div class="svc-info">
+            <h3>Repairs & Fixing</h3>
+            <p>Quick repairs, lens replacement and frame adjustments.</p>
+          </div>
+          <a class="svc-link" href="#" data-service="Repairs & Fixing" aria-label="Enquire about Repairs"></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS / BADGES -->
+<section id="badges" class="section surface">
+  <div class="container center">
+    <div class="section-title">Certifications & Achievements</div>
+    <p class="muted">Trusted by our customers — backed by years of service & quality.</p>
+
+    <div class="badges-grid">
+      <div class="badge-item">
+        <div class="badge-number">500+</div>
+        <p>Happy Customers</p>
+      </div>
+      <div class="badge-item">
+        <div class="badge-number">1000+</div>
+        <p>Frames Available</p>
+      </div>
+      <div class="badge-item">
+        <div class="badge-number">10+</div>
+        <p>Years Experience</p>
+      </div>
+      <div class="badge-item">
+        <div class="badge-number">100%</div>
+        <p>Quality Guarantee</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- OPTICIAN -->
+  <section id="optician" class="section">
+    <div class="container center">
+      <div class="section-title">Speak to an Optician</div>
+      <div class="optician-row">
+        <img src="image/optician.jpeg" alt="Optician assisting customer" onerror="this.src='https://via.placeholder.com/320?text=Optician'">
+        <p class="muted">Our opticians will help you select your glasses by assessing your prescription and advising the best lens options. We recommend frames that complement your face shape, style and lifestyle.</p>
+        <div style="display:flex;gap:0.6rem;justify-content:center;margin-top:0.6rem">
+          <button class="btn btn-primary btn-whatsapp">Chat with an Optician</button>
+          <a href="#contact" class="btn">Make Appointment</a>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- ABOUT US -->
+<section id="about" class="section fade-in">
+  <div class="container about-grid">
+    <div class="about-text">
+      <h2>About Us</h2>
+      <p>
+        At <strong>Victex Optical Service</strong>, we believe your eyewear should do more than
+        correct your vision — it should reflect your personality, style, and confidence.  
+      </p>
+      <p>
+        For over a decade, we’ve been helping people see better and look better by offering
+        carefully selected frames, high-quality lenses, and professional optical care.
+      </p>
+      <h3>Our Vision</h3>
+      <p>
+        To be the most trusted optical brand where <em>style meets healthcare</em> — giving every
+        customer the confidence to see the world clearly and live beautifully.
+      </p>
+    </div>
+    <div class="about-image">
+      <img src="image/optician.jpg" alt="Optician at Marvelous Optical Service">
+    </div>
+  </div>
+</section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="section surface">
+    <div class="container center">
+      <div class="section-title">Testimonials</div>
+      <p class="muted">Real feedback from our customers</p>
+
+      <div id="testimonials-wrap" style="margin-top:1rem">
+        <div class="testimonial" data-index="0">
+          <div class="stars">★★★★★</div>
+          <p>"Excellent service. My frames fit perfectly and the lenses are top quality!" — <strong>Damil</strong></p>
+        </div>
+        <div class="testimonial" data-index="1" style="display:none">
+          <div class="stars">★★★★★</div>
+          <p>"Great styling advice. I always get compliments." — <strong>Aman</strong></p>
+        </div>
+        <div class="testimonial" data-index="2" style="display:none">
+          <div class="stars">★★★★★</div>
+          <p>"Quick repairs and professional team." — <strong>Collins</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ (short) -->
+  <section id="faq" class="section">
+    <div class="container">
+      <div class="section-title center">Frequently Asked Questions</div>
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q">Do you perform eye tests?</div>
+          <div class="faq-a">Yes — our opticians perform eye assessments and help interpret prescriptions.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you deliver nationwide?</div>
+          <div class="faq-a">Yes — we dispatch orders across Nigeria. In-shop purchases are immediate.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- CONTACT -->
+<section id="contact" class="section surface">
+  <div class="container">
+    <div class="section-title center">Book an Appointment</div>
+    <p class="center muted">Fill out the form below and our team will contact you shortly.</p>
+
+    <div class="form-wrapper">
+      <form id="contact-form" aria-label="Contact form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input id="phone" name="phone" placeholder="e.g. 0810xxxxxxx" required>
+        </div>
+
+        <div class="form-group">
+          <label for="service">Select Service</label>
+          <select id="service" name="service" required>
+            <option>Optical Frames</option>
+            <option>Sunglasses</option>
+            <option>Contact Lenses</option>
+            <option>Blue Ray Lenses</option>
+            <option>Photochromic Lenses</option>
+            <option>Repairs & Fixing</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message (Optional)</label>
+          <textarea id="message" name="message" placeholder="Write additional info..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Send via WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+      <div style="margin-top:1rem;text-align:center;color:var(--muted)">
+        <strong>Address:</strong> 47 Obafemi Awolowo Way, Allen, Ikeja, Lagos • <strong>Tel:</strong> 08108644346
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      Victex Optical Service — © 2025 • 47 Obafemi Awolowo Way, Allen, Ikeja • <a href="https://wa.me/2348108644346" style="color:#fff">WhatsApp</a>
+    </div>
+  </footer>
+
+  <!-- ===========================
+       SCRIPTS (JS)
+       =========================== -->
+  <script>
+  /* ===========================
+     Utility: select helpers
+  =========================== */
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
+
+  /* ===========================
+     Mobile menu toggle
+  =========================== */
+  const menuToggle = $('#menuToggle');
+  const mobileMenu = $('#mobile-menu');
+  if(menuToggle){
+    menuToggle.addEventListener('click', () => {
+      const open = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!open));
+      mobileMenu.style.display = open ? 'none' : 'block';
+    });
+  }
+
+  /* ===========================
+     Smooth scrolling for internal links
+  =========================== */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e){
+      const href = this.getAttribute('href');
+      if(href.startsWith('#')){
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if(target){
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+          // close mobile menu if open
+          if (mobileMenu && mobileMenu.style.display === 'block') { mobileMenu.style.display = 'none'; menuToggle.setAttribute('aria-expanded','false'); }
+        }
+      }
+    });
+  });
+
+  /* ===========================
+     Fade-in on scroll (IntersectionObserver)
+  =========================== */
+  const faders = $$('.fade-in');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(ent => {
+        if(ent.isIntersecting){
+          ent.target.classList.add('appear');
+          obs.unobserve(ent.target);
+        }
+      });
+    }, {threshold: 0.15});
+    faders.forEach(f => io.observe(f));
+  } else {
+    // fallback
+    faders.forEach(f => f.classList.add('appear'));
+  }
+
+  /* ===========================
+     WhatsApp button handlers (global)
+  =========================== */
+  const WA_NUMBER = '2348108644346'; // country code + phone
+  const waButtons = $$('.btn-whatsapp');
+  waButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const msg = encodeURIComponent("Hello Mr Sunny, I saw your collection on the website and I'd like help.");
+      window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+    });
+  });
+
+  /* ===========================
+     Contact form -> WhatsApp redirect
+  =========================== */
+  const contactForm = $('#contact-form');
+  if(contactForm){
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = encodeURIComponent($('#name').value.trim());
+      const phone = encodeURIComponent($('#phone').value.trim());
+      const service = encodeURIComponent($('#service').value);
+      const message = encodeURIComponent($('#message').value.trim());
+      const text = `Hello Mr Sunny, my name is ${name}. Phone: ${phone}. Interested in: ${service}. ${message ? 'Notes: ' + message : ''}`;
+      window.open(`https://wa.me/${WA_NUMBER}?text=${text}`, '_blank');
+      contactForm.reset();
+    });
+  }
+
+  /* ===========================
+     Clickable service cards -> open Whatsapp with prefilled service
+  =========================== */
+  const serviceCards = $$('.service-card');
+  serviceCards.forEach(card => {
+    const link = card.querySelector('.svc-link');
+    const svc = card.dataset.service || 'Service';
+    const handler = (ev) => {
+      ev.preventDefault();
+      const text = encodeURIComponent(`Hello Mr Sunny, I'm interested in ${svc}. Please advise.`);
+      window.open(`https://wa.me/${WA_NUMBER}?text=${text}`, '_blank');
+    };
+    if(link){ link.addEventListener('click', handler); }
+    // also allow keyboard enter on card
+    card.addEventListener('keydown', (ev) => {
+      if(ev.key === 'Enter' || ev.key === ' '){ handler(ev); }
+    });
+  });
+
+  /* ===========================
+     Slider: auto + manual + dots + swipe
+  =========================== */
+  (function initSlider(){
+    const slider = $('#slider');
+    if(!slider) return;
+    const slides = $$('.slide', slider);
+    const left = $('.slider-arrow.left');
+    const right = $('.slider-arrow.right');
+    const dotsWrap = $('#slider-dots');
+    let idx = 0;
+    let autoTimer = null;
+    const slideCount = slides.length;
+
+    // create dots
+    for(let i=0;i<slideCount;i++){
+      const d = document.createElement('span');
+      d.className='dot';
+      d.setAttribute('role','tab');
+      d.setAttribute('aria-label','Go to slide '+(i+1));
+      d.addEventListener('click', ()=> goTo(i));
+      dotsWrap.appendChild(d);
+    }
+    const dots = $$('.dot', dotsWrap);
+    function update() {
+      slider.style.transform = `translateX(-${idx * (100)}%)`;
+      dots.forEach(d => d.classList.remove('active'));
+      if(dots[idx]) dots[idx].classList.add('active');
+    }
+    function goTo(i){
+      idx = (i + slideCount) % slideCount;
+      update();
+      restartAuto();
+    }
+    left.addEventListener('click', ()=> goTo(idx>0?idx-1:slideCount-1));
+    right.addEventListener('click', ()=> goTo(idx<slideCount-1?idx+1:0));
+
+    // swipe support
+    let startX=0, diff=0;
+    slider.addEventListener('touchstart', e => { startX = e.touches[0].clientX; clearInterval(autoTimer); });
+    slider.addEventListener('touchmove', e => {
+      if(!startX) return;
+      const x = e.touches[0].clientX;
+      diff = startX - x;
+    });
+    slider.addEventListener('touchend', e => {
+      if(Math.abs(diff) > 50){
+        if(diff > 0) goTo(idx + 1);
+        else goTo(idx - 1);
+      }
+      diff = 0; startX = 0;
+      restartAuto();
+    });
+
+    function startAuto(){
+      autoTimer = setInterval(()=> goTo(idx+1), 4000);
+    }
+    function restartAuto(){
+      clearInterval(autoTimer);
+      startAuto();
+    }
+
+    // init
+    update();
+    startAuto();
+  })();
+
+  /* ===========================
+     Testimonials rotation
+  =========================== */
+  (function initTestimonials(){
+    const items = $$('#testimonials .testimonial');
+    if(!items || items.length <= 1) return;
+    let t = 0;
+    setInterval(()=>{
+      items[t].style.display = 'none';
+      t = (t+1) % items.length;
+      items[t].style.display = 'block';
+    }, 4500);
+  })();
+
+  /* ===========================
+     Accessibility: close mobile menu on resize large screens
+  =========================== */
+  window.addEventListener('resize', () => {
+    if(window.innerWidth >= 980 && mobileMenu) { mobileMenu.style.display='none'; menuToggle.setAttribute('aria-expanded','false'); }
+  });
+  </script>
+</body>
+</html>
